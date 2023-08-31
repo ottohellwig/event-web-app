@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block content %}
+<div
+  class="container bg-light rounded border border-dark-subtle border-success border-opacity-25 mb-3 mt-3"
+>
+  <div class="col-md-12"></div>
+  <h2 class="mb-5 text-center mt-5">Booking History</h2>
+  <div
+    class="container mt-3 mb-3 border-bottom border-dark-subtle border-3 rounded-pill"
+  ></div>
+  <ul class="list-unstyled">
+    {% for booking in bookings %}
+    <li class="mb-4">
+      <div class="booking-info">
+        {% if booking.event %}
+        <div class="booking-event">
+          <div class="row">
+            <div class="col-md-4">
+              {% if booking.event.image %}
+              <img
+                src="/{{ booking.event.image }}"
+                alt="Event Image"
+                class="img-fluid"
+              />
+              {% endif %}
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="event-name">{{ booking.event.name }}</h4>
+                  <p class="event-desc">
+                    Description: {{ booking.event.description }}
+                  </p>
+                  <p class="event-location">
+                    Location: {{ booking.event.location }}
+                  </p>
+                  <p class="event-genre">Genre: {{ booking.event.genre }}</p>
+                  <p class="event-price">
+                    Ticket Price: {{ booking.event.ticket_price }}
+                  </p>
+                  <p class="event-total-cost">
+                    Total Cost: {{ booking.total_cost }}
+                  </p>
+                </div>
+                <div class="event-link">
+                  Event ID:
+                  <a href="{{ url_for('event.show', id=booking.event_id) }}">
+                    {{ booking.event_id }}
+                  </a>
+                </div>
+                <div class="col-md-12">
+                  <h5>Booking Details</h5>
+                  <p class="booking-id">Booking ID: {{ booking.id }}</p>
+                  <p class="booking-date">
+                    Order Date: {{ booking.order_date }}
+                  </p>
+                  <p class="booking-tickets">
+                    Number of Tickets: {{ booking.number_of_tickets }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </li>
+    <hr />
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

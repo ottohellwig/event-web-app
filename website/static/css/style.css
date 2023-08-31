@@ -1,0 +1,151 @@
+body{
+  background-image: url(../images/backgroundpattern.png);
+  font-family: "Arial", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body.imgI{
+  opacity: 0.5;
+}
+.backgrounds{
+  opacity: 0.5;
+}
+.imgH{
+  height: 200px;
+}
+
+.topimgH{
+  height:528px;
+}
+
+.imgMH{
+  min-height: 235px;
+}
+
+.imgAUTO{
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  
+}
+
+.imgMW{
+  max-width: auto;
+}
+
+.commentP{
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.imgCP{
+  max-height: 120px;
+  max-width: 220px;
+}
+
+.randomBX{
+  width: 300px;
+  height: 120px;
+}
+
+.Wspace{
+  margin: auto 0;
+}
+
+.wrapper {
+  padding: 20px;
+  background: #eaeaea;
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.text-limit {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.minH{
+  min-height: 125px;
+}
+
+/* Ethans css */
+
+.plus {
+  background-image: url("../images/Icon Plus.png");
+  background-size: contain;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  vertical-align: top;
+  border: none;
+  background-color: transparent;
+}
+
+.ticket-container {
+  display: inline-block;
+  padding-top: 3px;
+}
+
+.minus {
+  background-image: url("../images/Icon Minus.png");
+  background-size: contain;
+  display: inline-block;
+  width: 33px;
+  height: 34px;
+  vertical-align: top;
+  border: none;
+  background-color: transparent;
+}
+
+/* Ottos css for myEvents */
+
+.event-table {
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.event-table th,
+.event-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.event-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.event-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.event-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.event-table a {
+  margin-right: 8px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.event-table form {
+  display: inline-block;
+}
+
+.event-table button {
+  padding: 4px 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.event-table button:hover {
+  background-color: #c82333;
+}

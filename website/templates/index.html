@@ -1,0 +1,134 @@
+{% extends 'base.html' %} {% block header %}
+
+<body>
+  <main>
+    <!-- Carousel-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner mb-3 imgAUTO">
+        <div class="carousel-item active">
+          <img src="../static/images/Panel2.jpg" class="d-block w-100 img-fluid"
+            alt="People watching a bank play with hands up" />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images//Panel3.jpg" class="d-block w-100 img-fluid" alt="DJ playing his set" />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images/Panel4.jpg" class="d-block w-100 img-fluid" alt="Lots of albums overlapping" />
+        </div>
+      </div>
+    </div>
+    {% endblock %} {% block content %}
+    <div class="container container bg-light rounded border border-dark-subtle border-success border-opacity-25">
+      <div class="row pt-3">
+        <h4>Filter</h4>
+      </div>
+
+      <div class="row">
+        <!--location filter-->
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+          <form class="form-inline" action="{{ url_for('main.filter_by_location') }}" method="GET">
+            <div class="form-group mx-sm-3">
+              <label for="location" class="sr-only">Location</label>
+
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                  <input type="text" class="form-control" id="location" name="location" placeholder="Search by Location"> 
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </div> 
+
+            </div>
+          </form>
+        </div>
+
+          <!--filter for date-->
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex">
+            <form class="form-inline" action="{{ url_for('main.filter_by_date') }}" method="GET">
+              <div class="form-group mx-sm-3">
+                <label for="date" class="sr-only">Date</label>
+
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Search by Date">
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="dropdown pt-3 mt-2">
+              <!-- Genre filter works-->
+              <form action="{{ url_for('main.filter_by_genre') }}" method="post">
+                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
+                  Genre
+                </button>
+                <ul class="dropdown-menu ">
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Rock">Rock</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Jazz">Jazz</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Classical">Classical</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Rap">Rap</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Hip Hop">Hip-Hop</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Pop">Pop</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Country">Country</button></li>
+                  <li><button type="submit" class="dropdown-item" name="genre" value="Electronic">Electronic</button></li>
+                </ul>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      <!--line between filter and events-->
+      <div class="container mt-3 mb-3 border-bottom border-dark-subtle border-3 rounded-pill"></div>
+      
+      <!-- All Events-->
+      <div id="eventsContainer container bg-light rounded border border-dark-subtle border-success border-opacity-25">
+        <div class="container text-center p-3">
+          <div class="row mt-3">
+            <h1 class="NR d-flex">All Events</h5>
+          </div>
+        </div>
+        <div class="container text-center border-bottom border-dark-subtle border-3 rounded-pil">
+          <div class="row mb-4 p-3">
+            {% for event in events %}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 p-3">
+              <div class="card imgWAUTO">
+                <img src="{{ event.image }}" class="card-img-top rounded-0 imgH" alt="people watching singer perform">
+                <div class="card-body">
+                  <h5 class="card-title d-flex">{{ event.name }}</h5>
+                  <div class="warpper">
+                  <p class="card-text text-limit mb-2 minH">{{ event.description }}</p>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 pb-1">
+                      <a href="{{ url_for('event.show', id=event.id) }}" class="btn btn-outline-dark">View Event</a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                      {% if event.status == "OPEN" %}
+                      <a href="#" class="btn btn-success">{{ event.status }}</a>
+                      {% elif event.status in ["INACTIVE", "SOLD OUT"] %}
+                      <a href="#" class="btn btn-warning">{{ event.status }}</a>
+                      {% elif event.status == "CANCELLED" %}
+                      <a href="#" class="btn btn-danger">{{ event.status }}</a>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </main>
+</body>

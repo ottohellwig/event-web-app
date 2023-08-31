@@ -1,0 +1,296 @@
+<script>
+  let ticketCount = 0;
+  let totalCost = 0;
+  const ticketPrice = "{{ event.ticket_price }}";
+  const eventStatus = "{{ event.status }}";
+
+  function redirectToBook()
+  {
+    if (eventStatus !== "OPEN")
+    {
+      // Flash a message to the user
+      alert("Sorry, this event is not available for purchase.");
+      return;
+    }
+    const number_of_tickets = ticketCount;  // Get the number of tickets from the ticketCount variable
+    const total_cost = totalCost;
+    if (number_of_tickets > 0) {
+      const url = `{{ url_for('event.book', event=event.id) }}?number_of_tickets=${number_of_tickets}&total_cost=${total_cost}`;
+      window.location.href = url;
+    }
+    else alert('Please add tickets');
+  }
+
+  function increaseTicketCount()
+  {
+    ticketCount++;
+    document.getElementById('ticketCount').textContent = ticketCount;
+    document.getElementById('ticketCountSummary').textContent = ticketCount;
+    calculateTotal();
+  }
+
+  function decreaseTicketCount()
+  {
+    if (ticketCount > 0)
+    {
+      ticketCount--;
+      document.getElementById('ticketCount').textContent = ticketCount;
+      document.getElementById('ticketCountSummary').textContent = ticketCount;
+      calculateTotal();
+    }
+  }
+
+  function calculateTotal()
+  {
+    const subtotal = ticketCount * ticketPrice;
+    const fees = 5; // Placeholder for calculating fees
+    totalCost = subtotal + fees;
+    document.getElementById('ticketCountSummary').textContent = `${ticketCount}x Tickets`;
+    document.getElementById('ticketPrice').textContent = `$${ticketPrice} Per Ticket`;
+    document.getElementById('ticketCount').textContent = ticketCount;
+    document.getElementById('subtotal').textContent = `$${subtotal}`;
+    document.getElementById('subtotal1').textContent = `$${subtotal}`;
+    document.getElementById('fees').textContent = `$${fees}`;
+    document.getElementById('total').textContent = `$${totalCost}`;
+  }
+</script>
+
+{% extends 'base.html' %}
+
+{% import "bootstrap/form.html" as wtf %}
+
+{% block content %}
+
+<div class="card mb-3">
+  <img src="/{{ event.image }}" class="card-img-top" alt="band playing music" style="max-height: 800px;">
+</div>
+
+<div class="container bg-light rounded border border-dark-subtle border-success border-opacity-25 mt-3 mb-3">
+  <div class="row">
+    <div class="container text-center p-3 border-bottom border-dark-subtle border-3 rounded-pill">
+      <h1>{{ event.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-4">
+      <div class="row p-3">
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>Artist Name:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>{{ event.artist }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>Date & Time:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>{{ event.date }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>Location:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>{{ event.location }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>Status:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>{{ event.status }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-8">
+      <div class="row p-3">
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>Genre:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="container text-center">
+            <h4>{{ event.genre }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="container text-center p-3">
+        <h3>Event Details</h3>
+        <p>{{ event.description }}</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-2 p-3">
+      <div class="row progress-bar-striped bg-opacity-75 bg-warning rounded">
+        <div class="col-12">
+          <div class="container text-center">
+            <h4>Ticket Price:</h4>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="container text-center">
+            <h4>&#36;{{ event.ticket_price }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-2 p-3">
+      <div class="row progress-bar-striped bg-opacity-75 bg-warning rounded">
+        <div class="col-12 col-md-12">
+          <div class="container text-center">
+            <h4>Tickets Left:</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-12">
+          <div class="container text-center">
+            <h4>{{ event.number_of_tickets }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-4">
+      <button type="button" class="container progress-bar-striped text-center btn btn-success p-3"
+        data-bs-toggle="modal" data-bs-target="#ticketModal">
+        Buy Tickets
+      </button>
+    </div>
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="ticketModalLabel">Tickets to '{{ event.name }}'</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-5">
+                <button type="button" class="plus" onclick="increaseTicketCount()"></button>
+                <div class="ticket-container px-2">
+                  <h4 id="ticketCount">0</h4>
+                </div>
+                <button type="button" class="minus" onclick="decreaseTicketCount()"></button>
+              </div>
+              <div class="col-5">
+                <div class="ticket-container px-2">
+                  <h4 id="ticketPrice">${{ event.ticket_price }} Per Ticket</h4>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <div class="ticket-container px-2">
+                  <h4>Order Summary</h4>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row py-2">
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5 id="ticketCountSummary">0</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5 id="subtotal">$0</h5>
+                </div>
+              </div>
+            </div>
+            <div class="row py-2">
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5>Subtotal</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5 id="subtotal1">$0</h5>
+                </div>
+              </div>
+            </div>
+            <div class="row py-2">
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5>Fees</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5 id="fees">A$0</h5>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row py-2">
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5>Total</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="ticket-container px-2">
+                  <h5 id="total">$0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success" onclick="redirectToBook()">Purchase</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Comments -->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Comments</h1>
+    </div>
+  </div>
+
+  <div class="row border-bottom">
+    {{wtf.render_form(form,"/events/{0}/comment".format(event.id))}}
+    {% for comment in event.comments %}
+    <div class="col-md-12">
+      <b>{{ comment.user.name }} <span class="ml-2 text-muted">{{ comment.created_at.strftime('%H:%M %d/%m/%y')
+          }}</span></b>
+      <p>{{comment.text}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

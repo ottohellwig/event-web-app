@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% import "bootstrap/form.html" as wtf %} {% block
+content %}
+<div class="container-fluid">
+  <div
+    class="container bg-light rounded border border-dark-subtle border-success border-opacity-25 my-3"
+  >
+    <div class="page-header mb-5 mt-5">
+      <h2 class="container text-center">{{ heading }}</h2>
+    </div>
+    <div
+      class="container mt-3 mb-3 border-bottom border-dark-subtle border-3 rounded-pill"
+    ></div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% for
+    category, message in messages %} {% if category == 'auth_success' %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endif %} {% endfor %} {% endwith %}
+
+    <div class="col-md-6 ml-5">{{ wtf.render_form(form) }}</div>
+
+    {% if heading|lower =='login' %}
+    <div class="col-md-4 mb-5 ml-5">
+      <p>
+        New user?
+        <a href="{{ url_for('auth.register') }}">Click here to register</a>.
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
