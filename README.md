@@ -1,81 +1,42 @@
-Flask
-=====
+<div align="center">
 
-Flask is a lightweight `WSGI`_ web application framework. It is designed
-to make getting started quick and easy, with the ability to scale up to
-complex applications. It began as a simple wrapper around `Werkzeug`_
-and `Jinja`_ and has become one of the most popular Python web
-application frameworks.
+  # IMDb Clone
 
-Flask offers suggestions, but doesn't enforce any dependencies or
-project layout. It is up to the developer to choose the tools and
-libraries they want to use. There are many extensions provided by the
-community that make adding new functionality easy.
-
-.. _WSGI: https://wsgi.readthedocs.io/
-.. _Werkzeug: https://werkzeug.palletsprojects.com/
-.. _Jinja: https://jinja.palletsprojects.com/
+  A music event management website where users can browse, create and manage events.
+  
+  ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)&nbsp;
+  ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)&nbsp;
+  ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)&nbsp;
+  ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+  
+  ![image](https://github.com/ottohellwig/imdb-clone/assets/105997582/6242cdcb-bf58-44e2-972d-7d9653612283)
 
 
-Installing
-----------
+</div>
 
-Install and update using `pip`_:
+## Features
 
-.. code-block:: text
+<details>
+  <summary>
+    <i>Click to view features</i>
+  </summary>
+  <p>
 
-    $ pip install -U Flask
+  - Flask-SQLAlchemy DB interaction
+  - SQLite database
+  - Event creation
+  - User registration/login
+  - Dynamic loading
+  - Searching and filtering
+  - MVC architecture
 
-.. _pip: https://pip.pypa.io/en/stable/getting-started/
+  </p>
+</details>
 
+## Contributing
 
-A Simple Example
-----------------
+Contributions (Issues/PRs/Discussions) are the driver of improvements in projects. Any contributions you make are greatly appreciated.
 
-.. code-block:: python
+## Credits
 
-    # save this as app.py
-    from flask import Flask
-
-    app = Flask(__name__)
-
-    @app.route("/")
-    def hello():
-        return "Hello, World!"
-
-.. code-block:: text
-
-    $ flask run
-      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-
-
-Contributing
-------------
-
-For guidance on setting up a development environment and how to make a
-contribution to Flask, see the `contributing guidelines`_.
-
-.. _contributing guidelines: https://github.com/pallets/flask/blob/main/CONTRIBUTING.rst
-
-
-Donate
-------
-
-The Pallets organization develops and supports Flask and the libraries
-it uses. In order to grow the community of contributors and users, and
-allow the maintainers to devote more time to the projects, `please
-donate today`_.
-
-.. _please donate today: https://palletsprojects.com/donate
-
-
-Links
------
-
--   Documentation: https://flask.palletsprojects.com/
--   Changes: https://flask.palletsprojects.com/changes/
--   PyPI Releases: https://pypi.org/project/Flask/
--   Source Code: https://github.com/pallets/flask/
--   Issue Tracker: https://github.com/pallets/flask/issues/
--   Chat: https://discord.gg/pallets
-
+Credits to Jacob Woodroffe and Ethan Mann for contributing to this project.
