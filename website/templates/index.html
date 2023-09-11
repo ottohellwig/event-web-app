@@ -2,28 +2,8 @@
 
 <body>
   <main>
-    <!-- Carousel-->
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner mb-3 imgAUTO">
-        <div class="carousel-item active">
-          <img src="../static/images/Panel2.jpg" class="d-block w-100 img-fluid"
-            alt="People watching a bank play with hands up" />
-        </div>
-        <div class="carousel-item">
-          <img src="../static/images//Panel3.jpg" class="d-block w-100 img-fluid" alt="DJ playing his set" />
-        </div>
-        <div class="carousel-item">
-          <img src="../static/images/Panel4.jpg" class="d-block w-100 img-fluid" alt="Lots of albums overlapping" />
-        </div>
-      </div>
-    </div>
     {% endblock %} {% block content %}
-    <div class="container container bg-light rounded border border-dark-subtle border-success border-opacity-25">
-      <div class="row pt-3">
-        <h4>Filter</h4>
-      </div>
-
-      <div class="row">
+      <div class="row justify-content-center">
         <!--location filter-->
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <form class="form-inline" action="{{ url_for('main.filter_by_location') }}" method="GET">
